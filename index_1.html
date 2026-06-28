@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elchai Group — Kimi K2.6 Assessment</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:        #0b0d17;
+    --bg-soft:   #12152480;
+    --panel:     #141828;
+    --panel-2:   #1a1f33;
+    --line:      #262c44;
+    --ink:       #e7eaf4;
+    --ink-soft:  #9aa3c0;
+    --ink-mute:  #5d6688;
+    --accent:    #6c7dff;
+    --accent-2:  #38e0c4;
+    --warn:      #f6a94a;
+    --danger:    #f5688a;
+    --good:      #3fd98a;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    background:
+      radial-gradient(900px 500px at 80% -5%, #1c2350 0%, transparent 60%),
+      radial-gradient(700px 400px at 0% 10%, #10261f 0%, transparent 55%),
+      var(--bg);
+    color: var(--ink);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap { max-width: 1000px; margin: 0 auto; padding: 0 28px; }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(11,13,23,.82);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; padding-bottom: 16px; }
+  .brand { font-family: 'Space Grotesk'; font-weight: 700; letter-spacing: .5px; font-size: 1.02rem; }
+  .brand b { color: var(--accent); }
+  .navlinks { display: flex; gap: 22px; }
+  .navlinks a { color: var(--ink-soft); text-decoration: none; font-size: .86rem; font-weight: 500; transition: color .15s; }
+  .navlinks a:hover { color: var(--ink); }
+
+  /* SECTION SHELL */
+  section { padding: 72px 0; }
+  .eyebrow {
+    font-family: 'JetBrains Mono';
+    font-size: .74rem; letter-spacing: 2.5px; text-transform: uppercase;
+    color: var(--accent-2); margin-bottom: 14px;
+  }
+  h1 { font-family: 'Space Grotesk'; font-size: 2.1rem; font-weight: 700; line-height: 1.15; letter-spacing: -.5px; }
+  h2 { font-family: 'Space Grotesk'; font-size: 1.5rem; font-weight: 600; letter-spacing: -.3px; margin-bottom: 8px; }
+  h3 { font-family: 'Space Grotesk'; font-size: 1.05rem; font-weight: 600; }
+  p  { color: var(--ink-soft); }
+  .lead { font-size: 1.05rem; color: var(--ink-soft); max-width: 70ch; }
+
+  .divline { height: 1px; background: var(--line); margin: 0; }
+
+  /* META HEADER */
+  #top { padding-top: 64px; padding-bottom: 40px; }
+  .meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 28px; }
+  .meta {
+    background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px;
+  }
+  .meta .k { font-family: 'JetBrains Mono'; font-size: .72rem; color: var(--ink-mute); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; }
+  .meta .v { font-size: .96rem; color: var(--ink); font-weight: 500; }
+  .pills { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .pill {
+    font-family: 'JetBrains Mono'; font-size: .72rem; color: var(--ink-soft);
+    background: var(--panel-2); border: 1px solid var(--line);
+    padding: 5px 12px; border-radius: 999px;
+  }
+  .pill b { color: var(--accent-2); font-weight: 500; }
+
+  /* FACT STRIP */
+  .facts { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 8px; }
+  .fact { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .fact .num { font-family: 'Space Grotesk'; font-size: 1.7rem; font-weight: 700; color: var(--ink); line-height: 1; }
+  .fact .num span { color: var(--accent); }
+  .fact .lab { font-size: .8rem; color: var(--ink-soft); margin-top: 8px; }
+  .fact .src { font-family: 'JetBrains Mono'; font-size: .66rem; color: var(--ink-mute); margin-top: 8px; }
+
+  .body-copy p { margin-bottom: 14px; max-width: 72ch; }
+  .body-copy strong { color: var(--ink); font-weight: 600; }
+
+  /* SIGNATURE DIAGRAM */
+  .swarm {
+    background: linear-gradient(180deg, var(--panel) 0%, #0f1322 100%);
+    border: 1px solid var(--line); border-radius: 18px; padding: 36px 28px; margin: 28px 0;
+  }
+  .swarm-title { text-align: center; font-family: 'JetBrains Mono'; font-size: .74rem; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 28px; }
+  .node {
+    text-align: center; border-radius: 12px; padding: 12px 10px; font-size: .82rem; font-weight: 600;
+    font-family: 'Space Grotesk';
+  }
+  .node.controller { background: rgba(108,125,255,.14); border: 1px solid var(--accent); color: var(--ink); max-width: 280px; margin: 0 auto; }
+  .node small { display:block; font-family:'Inter'; font-weight:400; font-size:.72rem; color: var(--ink-soft); margin-top: 3px; }
+  .subrow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 18px 0; }
+  .node.sub { background: var(--panel-2); border: 1px solid var(--line); color: var(--ink-soft); font-size: .78rem; }
+  .node.gate { background: rgba(63,217,138,.1); border: 1px solid var(--good); color: var(--ink); max-width: 320px; margin: 0 auto; }
+  .conn { text-align: center; color: var(--ink-mute); font-size: 1.1rem; line-height: 1; margin: 4px 0; }
+
+  /* LANDING PAGE BAND */
+  .lp { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: #090b14; }
+  .lp .hero {
+    text-align: center; padding: 84px 0 64px;
+    background: radial-gradient(700px 360px at 50% -10%, #1d2452 0%, transparent 65%);
+  }
+  .lp .hero h1 { font-size: 2.5rem; max-width: 16ch; margin: 0 auto 18px; }
+  .lp .hero h1 em { font-style: normal; color: var(--accent); }
+  .lp .hero p { font-size: 1.08rem; max-width: 56ch; margin: 0 auto 30px; color: var(--ink-soft); }
+  .cta {
+    display: inline-block; font-family: 'Space Grotesk'; font-weight: 600; font-size: .95rem;
+    background: var(--accent); color: #0a0c16; padding: 13px 30px; border-radius: 10px; text-decoration: none;
+    transition: transform .12s, box-shadow .12s; box-shadow: 0 6px 24px -8px var(--accent);
+  }
+  .cta:hover { transform: translateY(-1px); }
+  .cta.ghost { background: transparent; color: var(--accent); border: 1px solid var(--accent); box-shadow: none; margin-left: 10px; }
+
+  .lp-block { padding: 64px 0; }
+  .lp-block.alt { background: #0c0f1b; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+
+  .benefits { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 32px; }
+  .benefit { background: var(--panel); border: 1px solid var(--line); border-radius: 16px; padding: 26px; }
+  .benefit .bnum { font-family: 'JetBrains Mono'; font-size: .76rem; color: var(--accent-2); margin-bottom: 12px; }
+  .benefit h3 { margin-bottom: 8px; }
+  .benefit p { font-size: .9rem; }
+
+  .scenario { background: var(--panel); border: 1px solid var(--line); border-left: 3px solid var(--accent); border-radius: 12px; padding: 22px 24px; margin-top: 16px; }
+  .scenario h3 { color: var(--accent-2); margin-bottom: 6px; font-size: .98rem; }
+  .scenario p { font-size: .92rem; }
+
+  /* WIREFRAME */
+  .wire {
+    font-family: 'JetBrains Mono'; font-size: .76rem; white-space: pre; overflow-x: auto;
+    background: #070912; border: 1px dashed var(--line); border-radius: 14px; padding: 26px;
+    color: var(--ink-mute); line-height: 1.55; margin-top: 24px;
+  }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin-top: 22px; font-size: .9rem; }
+  th { text-align: left; font-family: 'Space Grotesk'; font-weight: 600; color: var(--ink); font-size: .82rem; text-transform: uppercase; letter-spacing: 1px; padding: 12px 16px; border-bottom: 1px solid var(--line); }
+  td { padding: 14px 16px; border-bottom: 1px solid var(--line); color: var(--ink-soft); vertical-align: top; }
+  td strong { color: var(--ink); }
+  .sev { font-family: 'JetBrains Mono'; font-size: .76rem; font-weight: 500; }
+  .sev.h { color: var(--danger); }
+  .sev.m { color: var(--warn); }
+  .sev.l { color: var(--good); }
+
+  /* VERDICT */
+  .verdict { background: linear-gradient(135deg, #161c3a, #0d1020); border: 1px solid var(--accent); border-radius: 18px; padding: 34px; margin-top: 28px; }
+  .badge { display: inline-block; font-family: 'JetBrains Mono'; font-size: .8rem; font-weight: 500; background: var(--good); color: #07120b; padding: 7px 16px; border-radius: 8px; margin-bottom: 16px; }
+  .verdict p { color: var(--ink); }
+
+  .phase { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-top: 20px; }
+  .pcard { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 20px; }
+  .pcard .pk { font-family: 'JetBrains Mono'; font-size: .72rem; color: var(--accent-2); margin-bottom: 8px; }
+  .pcard p { font-size: .86rem; }
+
+  .sources { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 22px 24px; margin-top: 24px; }
+  .sources h3 { margin-bottom: 12px; }
+  .sources li { color: var(--ink-soft); font-size: .88rem; margin-bottom: 7px; list-style: none; padding-left: 18px; position: relative; }
+  .sources li::before { content: "→"; position: absolute; left: 0; color: var(--ink-mute); }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0; text-align: center; color: var(--ink-mute); font-size: .82rem; font-family: 'JetBrains Mono'; }
+
+  @media (max-width: 760px) {
+    .meta-grid, .facts, .benefits, .subrow, .phase { grid-template-columns: 1fr; }
+    .facts { grid-template-columns: 1fr 1fr; }
+    h1 { font-size: 1.7rem; } .lp .hero h1 { font-size: 1.9rem; }
+    .cta.ghost { margin-left: 0; margin-top: 10px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="brand">ELCHAI <b>×</b> KIMI K2.6</div>
+    <div class="navlinks">
+      <a href="#model">Model</a>
+      <a href="#landing">Concept</a>
+      <a href="#depts">Departments</a>
+      <a href="#risks">Risks</a>
+      <a href="#verdict">Verdict</a>
+    </div>
+  </div>
+</nav>
+
+<!-- TOP META -->
+<section id="top" class="wrap">
+  <div class="eyebrow">Pre-Interview Assessment · AI Agent &amp; OpenClaw Research Intern</div>
+  <h1>Evaluating Kimi K2.6 as the open-weight engine behind OpenClaw</h1>
+  <p class="lead" style="margin-top:14px;">A practical evaluation of Moonshot AI's Kimi K2.6 for Elchai Group — what it is, where it fits the OpenClaw governed-agent model, the risks that actually matter for a Dubai consultancy, and a staged recommendation.</p>
+
+  <div class="meta-grid">
+    <div class="meta"><div class="k">Selected model</div><div class="v">Kimi K2.6 — Moonshot AI</div></div>
+    <div class="meta"><div class="k">License</div><div class="v">Modified MIT (open weights)</div></div>
+    <div class="meta"><div class="k">Fallback if access limited</div><div class="v">Qwen3 / GLM-5.1 (both open-weight)</div></div>
+    <div class="meta"><div class="k">Recommendation</div><div class="v">Test it — gated internal pilot first</div></div>
+  </div>
+
+  <div class="pills">
+    <span class="pill"><b>1T</b> total params</span>
+    <span class="pill"><b>32B</b> active / token</span>
+    <span class="pill"><b>256K</b> context</span>
+    <span class="pill"><b>MoE</b> architecture</span>
+    <span class="pill"><b>Agent Swarm</b> 300 sub-agents</span>
+    <span class="pill"><b>Self-hostable</b> vLLM / SGLang</span>
+  </div>
+</section>
+
+<div class="divline"></div>
+
+<!-- MODEL EXPLAINER -->
+<section id="model" class="wrap">
+  <div class="eyebrow">What it is</div>
+  <h2>Kimi K2.6 in plain terms</h2>
+
+  <div class="facts" style="margin-bottom:28px;">
+    <div class="fact"><div class="num">58.6<span>%</span></div><div class="lab">SWE-Bench Pro — ties GPT-5.5 on this coding benchmark</div><div class="src">Moonshot benchmarks</div></div>
+    <div class="fact"><div class="num">300</div><div class="lab">Parallel sub-agents in Agent Swarm mode (4,000 steps)</div><div class="src">K2.6 model card</div></div>
+    <div class="fact"><div class="num">~80<span>%</span></div><div class="lab">Cheaper per-token than comparable frontier APIs</div><div class="src">DeepInfra / Moonshot</div></div>
+    <div class="fact"><div class="num">256K</div><div class="lab">Context window — fits whole proposals or codebases</div><div class="src">Model card</div></div>
+  </div>
+
+  <div class="body-copy">
+    <p>Kimi K2.6 is an <strong>open-weight, mixture-of-experts (MoE) model</strong> from Moonshot AI. It has roughly 1 trillion total parameters but only activates about 32 billion per token — so it runs at the cost and speed of a much smaller model while reaching frontier-level quality. It was released under a <strong>Modified MIT license</strong>, which means the weights can be downloaded and self-hosted, not just rented through an API.</p>
+    <p>The headline feature for Elchai is <strong>Agent Swarm</strong>: instead of working one step at a time, K2.6 can decompose a task and fan it out across many domain-specialised sub-agents running in parallel, then synthesise their outputs into a finished deliverable — a document, a working web page, a spreadsheet. It also supports native tool-calling and MCP, so it slots into existing agent frameworks rather than requiring a rebuild.</p>
+    <p>It ships with two practical modes — an instant mode for quick responses and a thinking mode that shows a reasoning trace for complex, multi-step coding and agentic work — and can run on standard open inference engines (vLLM, SGLang, KTransformers) for teams that want to host it themselves.</p>
+  </div>
+
+  <div class="swarm">
+    <div class="swarm-title">How the swarm maps onto Elchai's 80 / 20 model</div>
+    <div class="node controller">Kimi K2.6 Controller<small>decomposes the task · validates outputs · escalates decisions</small></div>
+    <div class="conn">┌────────┬────────┬────────┐</div>
+    <div class="subrow">
+      <div class="node sub">Data audit<br>sub-agent</div>
+      <div class="node sub">Opportunity<br>sub-agent</div>
+      <div class="node sub">Compliance<br>sub-agent</div>
+      <div class="node sub">Drafting<br>sub-agent</div>
+    </div>
+    <div class="conn">│ &nbsp; the 80% — execution work runs in parallel &nbsp; │</div>
+    <div class="conn">▼</div>
+    <div class="node gate">Human strategist gate<small>the 20% — judgment, approvals, compliance sign-off</small></div>
+  </div>
+
+  <div class="body-copy">
+    <p><strong>Why this matters for Elchai specifically.</strong> Elchai's flagship product, OpenClaw, is built on exactly this shape: governed AI agents handle the bulk of execution while humans keep judgment, approvals and budget. Kimi K2.6 is a natural engine for that model — and notably Moonshot already ships <strong>Kimi Claw</strong>, a one-click deployment that wires a K2.6 plan into a hosted OpenClaw-style environment. Because the weights are open, Elchai can run the whole thing on its own infrastructure in the GCC, which keeps regulated client data inside the region — something closed APIs often can't promise.</p>
+  </div>
+</section>
+
+<!-- LANDING PAGE CONCEPT -->
+<div class="lp" id="landing">
+  <div class="hero">
+    <div class="wrap">
+      <div class="eyebrow" style="text-align:center;">The practical output · Landing page concept</div>
+      <h1>From first call to AI roadmap in <em>48 hours</em></h1>
+      <p>Elchai's OpenClaw Intelligence Hub uses a governed Kimi K2.6 agent swarm to audit a client's data, map opportunities, and draft a strategic roadmap — before the second meeting.</p>
+      <a href="#landing-detail" class="cta">Book a Governance Assessment</a>
+      <a href="#risks" class="cta ghost">See the risk analysis</a>
+    </div>
+  </div>
+
+  <div class="lp-block" id="landing-detail">
+    <div class="wrap">
+      <h2>The problem</h2>
+      <p class="lead">Enterprise AI adoption stalls in the strategy phase. Discovery and opportunity assessments often take weeks of workshops; by the time a roadmap lands, budgets have shifted and momentum is gone. Elchai's clients — healthcare providers in Dubai, fintechs across the GCC — need that speed without giving up governance or sending sensitive data to a third-party cloud.</p>
+    </div>
+  </div>
+
+  <div class="lp-block alt">
+    <div class="wrap">
+      <h2>The solution</h2>
+      <p class="lead">A governed Kimi K2.6 swarm sits behind Elchai's existing consulting method. A controller agent splits each engagement into parallel specialist sub-agents — data audit, opportunity mapping, compliance check, roadmap drafting — and routes every meaningful decision back to a human strategist. The model produces the first 80%; the strategist owns the 20% that matters.</p>
+
+      <div class="benefits">
+        <div class="benefit">
+          <div class="bnum">01 — Speed</div>
+          <h3>Compress discovery</h3>
+          <p>Parallel sub-agents turn a multi-week discovery phase into a 48-hour first-draft roadmap, so engagements move to proof-of-concept faster.</p>
+        </div>
+        <div class="benefit">
+          <div class="bnum">02 — Governance</div>
+          <h3>Control by design</h3>
+          <p>Outputs are grounded in retrieved source documents and citation-tagged. The controller enforces the 80/20 split, so leadership never loses oversight — matching OpenClaw's stated model.</p>
+        </div>
+        <div class="benefit">
+          <div class="bnum">03 — Sovereignty</div>
+          <h3>Data stays in-region</h3>
+          <p>Open weights and a Modified MIT license mean the swarm can be self-hosted on Elchai's own GCC infrastructure. Regulated client data never leaves the perimeter.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="lp-block">
+    <div class="wrap">
+      <h2>Use case</h2>
+      <div class="scenario">
+        <h3>Healthcare provider · Abu Dhabi · AI patient-triage scoping</h3>
+        <p>A mid-sized provider asks Elchai to scope an AI triage system. Rather than three weeks of workshops, Elchai runs the OpenClaw Intelligence Hub: the data sub-agent ingests two years of anonymised patient-flow documents, the opportunity sub-agent flags discharge planning as the highest-ROI target, the compliance sub-agent surfaces the relevant data-handling requirements, and the drafting sub-agent assembles a governed PoC plan — all within 48 hours. A human strategist reviews, refines and presents. Because the swarm is self-hosted, no patient data leaves the provider's region.</p>
+      </div>
+
+      <div class="wire">┌──────────────────────────────────────────────────────────────┐
+│  Client intake (web form)                                    │
+├──────────────────────────────────────────────────────────────┤
+│  FastAPI gateway  ·  auth · rate-limit · routing             │
+├──────────────────────────────────────────────────────────────┤
+│  KIMI K2.6 CONTROLLER  ·  decompose · validate · escalate    │
+│        │            │            │             │              │
+│   ┌────┴───┐   ┌────┴───┐   ┌────┴────┐   ┌────┴────┐         │
+│   │ Data   │   │ Oppty  │   │Compliance│  │ Roadmap │         │
+│   │ audit  │   │ scout  │   │ check    │  │ drafting│         │
+│   └────┬───┘   └────┬───┘   └────┬────┘   └────┬────┘         │
+│        └────────────┴────────────┴─────────────┘             │
+│                        ▼                                     │
+│   Vector store (ChromaDB)  ·  citations + retrieval memory   │
+│                        ▼                                     │
+│   HUMAN REVIEW DASHBOARD  ·  Elchai strategist signs off     │
+└──────────────────────────────────────────────────────────────┘</div>
+
+      <p style="margin-top:24px;"><strong style="color:var(--ink);">Call to action:</strong> <span style="color:var(--ink-soft)">Book a 30-minute C-level consultation and watch a governed AI readiness roadmap generated live.</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- DEPARTMENTS -->
+<section id="depts" class="wrap">
+  <div class="eyebrow">Who benefits internally</div>
+  <h2>Elchai departments</h2>
+  <table>
+    <tr><th>Department</th><th>How they benefit</th></tr>
+    <tr><td><strong>Strategy &amp; Consulting</strong></td><td>Discovery grunt work (data audits, compliance checks) is automated, freeing strategists for high-judgment client recommendations.</td></tr>
+    <tr><td><strong>Engineering</strong></td><td>Strong agentic coding (58.6% SWE-Bench Pro) supports faster boilerplate, parallel code review and documentation. Self-hostable, so it can be fine-tuned in-house.</td></tr>
+    <tr><td><strong>IT / Infrastructure</strong></td><td>Open weights + self-hosting on local GPU clusters removes vendor lock-in and supports GCC data-residency requirements — but means owning the GPU footprint.</td></tr>
+    <tr><td><strong>Finance</strong></td><td>~80% lower per-token cost than frontier APIs makes agent-heavy workflows economically viable; predictable spend when self-hosted.</td></tr>
+    <tr><td><strong>Product</strong></td><td>The controller's validation layer doubles as a QA pass on specs and PRDs before human PM review.</td></tr>
+  </table>
+</section>
+
+<div class="divline"></div>
+
+<!-- RISKS -->
+<section id="risks" class="wrap">
+  <div class="eyebrow">What could go wrong</div>
+  <h2>Risks &amp; limitations</h2>
+  <p class="lead">These are the risks that actually matter for a Dubai consultancy handling regulated client data — not a generic checklist.</p>
+  <table>
+    <tr><th>Risk</th><th>Sev.</th><th>Why it matters for Elchai</th><th>Mitigation</th></tr>
+    <tr><td><strong>Client data privacy</strong></td><td class="sev h">High</td><td>Using the hosted API sends client documents to a third-party (and a non-UAE) provider — a compliance problem for healthcare and finance clients.</td><td>The privacy win only materialises if self-hosted. Run K2.6 on Elchai's own GCC infrastructure for anything client-identifiable; reserve the API for non-sensitive internal work.</td></tr>
+    <tr><td><strong>Local hardware cost</strong></td><td class="sev m">Medium</td><td>"Open weights" is not "free to run." A 1T-parameter model needs a serious multi-GPU node (e.g. 4× H100-class) to self-host.</td><td>Start on the API to prove value; commit capex only once ROI is measured. INT4 quantization and CPU expert-offload lower the bar somewhat.</td></tr>
+    <tr><td><strong>Hallucination on long runs</strong></td><td class="sev m">Medium</td><td>Long-horizon agent loops can compound a single early error across many steps — dangerous for compliance-adjacent output.</td><td>RAG-ground every factual claim to retrieved source text; require citations; hard-code human-in-the-loop gates. (This is exactly the pattern from my UAE Expat Navigator project.)</td></tr>
+    <tr><td><strong>Model accuracy ceiling</strong></td><td class="sev m">Medium</td><td>Strong on agentic/coding, but trails the top closed models on some pure-reasoning and math benchmarks.</td><td>Use it where it's strong (agentic execution, coding, drafting); keep humans on final judgment. Don't position it as infallible.</td></tr>
+    <tr><td><strong>Integration effort</strong></td><td class="sev l">Low–Med</td><td>Slotting any model into OpenClaw's governance layer is real engineering work, even with MCP support.</td><td>Run a 2-week spike on the OpenAI-compatible API and validate MCP compatibility before any self-hosting commitment.</td></tr>
+    <tr><td><strong>"Chinese model" client perception</strong></td><td class="sev m">Medium</td><td>Some enterprise clients raise concerns about a China-developed model regardless of technical safeguards.</td><td>Be transparent about internal tooling; self-hosting means data never leaves Elchai's servers, which addresses most concerns directly.</td></tr>
+    <tr><td><strong>Reliability / no vendor SLA</strong></td><td class="sev l">Low</td><td>Self-hosting means Elchai owns uptime, patching and supply-chain trust — the trade-off for control.</td><td>Checkpoint long runs; design sub-agents to resume from last good state; keep the hosted API as a fallback path.</td></tr>
+  </table>
+</section>
+
+<div class="divline"></div>
+
+<!-- VERDICT -->
+<section id="verdict" class="wrap">
+  <div class="eyebrow">The call</div>
+  <h2>Final recommendation</h2>
+
+  <div class="verdict">
+    <div class="badge">✓ TEST IT — gated internal pilot first</div>
+    <p>Kimi K2.6 is a genuinely frontier-class open-weight model that aligns strategically with OpenClaw — but it earns production trust through proof, not assumption. Run a gated pilot that mirrors Elchai's own "proof-before-expansion" rollout method, and only scale on measured results.</p>
+  </div>
+
+  <div class="phase">
+    <div class="pcard"><div class="pk">Phase 1 · Weeks 1–4</div><h3>Internal pilot</h3><p>Run the Intelligence Hub on 3–5 synthetic client scenarios via the hosted API — no real client data. Measure accuracy, hallucination rate, and strategist time saved.</p></div>
+    <div class="pcard"><div class="pk">Phase 2 · Weeks 5–8</div><h3>Controlled beta</h3><p>One non-critical engagement with full human oversight. Validate data-residency handling and real hardware-cost projections for self-hosting.</p></div>
+    <div class="pcard"><div class="pk">Phase 3 · Month 3+</div><h3>Scale or pivot</h3><p>If the pilot clears the accuracy and time-saving bar, green-light self-hosted deployment. If not, fall back to an open-weight alternative for the heaviest sub-tasks.</p></div>
+  </div>
+
+  <p style="margin-top:24px; max-width:72ch;"><strong style="color:var(--ink)">Do not</strong> <span style="color:var(--ink-soft)">put real client documents through the hosted API, or ship swarm output to a client without expert human review, until self-hosting is certified by IT and hallucination rates are measured on an internal benchmark.</span></p>
+
+  <div class="sources" style="margin-bottom:24px;">
+    <h3>How I used Kimi K2.6 — example prompts</h3>
+    <p style="font-size:.88rem; margin-bottom:14px;">I used Kimi K2.6 mainly as a hands-on debugging and code-generation partner while building my RAG pipeline. In practice this meant pasting raw terminal errors and stack traces directly and iterating on the fix — a fast, real-world debugging loop rather than crafted one-shot prompts. Representative examples:</p>
+    <ul>
+      <li><span style="font-family:'JetBrains Mono'; font-size:.82rem; color:var(--ink);">[pasted full traceback from terminal]</span> — "fix this" → returned the corrected function and explained the cause.</li>
+      <li>Pasted a failing FastAPI / ChromaDB call with its error output and iterated until retrieval worked end-to-end.</li>
+      <li>Asked it to generate boilerplate (endpoint scaffolding, chunking logic) from a one-line spec, then refined against the errors that surfaced on first run.</li>
+    </ul>
+  </div>
+
+  <div class="sources">
+    <h3>Tools used &amp; how claims were verified</h3>
+    <ul>
+      <li>Kimi K2.6 — used hands-on (agentic document/code generation, including help on my RAG pipeline project); this evaluation reflects my own usage.</li>
+      <li>All model claims (1T/32B params, 256K context, Modified MIT license, 300-sub-agent swarm, 58.6% SWE-Bench Pro, ~80% cost saving, Kimi Claw → OpenClaw) cross-checked against Moonshot's model card / GitHub and independent benchmark write-ups.</li>
+      <li>Elchai Group website (elchaigroup.com) — confirmed the OpenClaw 80/20 governed-agent model and service lines.</li>
+      <li>An AI assistant was used to help structure, fact-check and lay out this writeup and the landing page; the model choice, the OpenClaw framing, the risk judgments and the recommendation are my own.</li>
+      <li>Landing page built in plain HTML/CSS — no paid tools.</li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Elchai Group · Pre-Interview Assessment · Kimi K2.6 evaluation · Built with HTML/CSS, no paid tools
+</footer>
+
+</body>
+</html>
